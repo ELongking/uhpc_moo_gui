@@ -23,7 +23,7 @@ This project is released under the [Apache 2.0 license](LICENSE).
 ## Step 1
 **First, prepare your data file and conduct the settings**
 
-The first row is used to import your concrete data. Make sure that one process (dataflow) only support for one prediction pair. For example, A.csv contains mixtures     and compressive strength, B.csv contains mixtures and slump, etc. When you need more than two properties to get prediction model, please import and run the data separately. **Please see the specific format in document A**
+The first row is used to import your concrete data. Make sure that one process (dataflow) only support for one prediction pair. For example, A.csv contains mixtures     and compressive strength, B.csv contains mixtures and slump, etc. When you need more than two properties to get prediction model, please import and run the data separately. **Please see the specific format in [file](sample/tabular.xlsx)**
 
 The second row is used to choose to select the export location (folder) for the relevant results files. The files include the final prediction model file (.pkl), the log files during the process, and a file named bound.xlsx which will be used in step 2
 
@@ -75,7 +75,7 @@ The second row is used to import user-defined file (.txt) containing various res
 
 **First of all, be careful that if you want to represent a component column, for example like above, cement is located in the first column of excel tabular, you should use inverse(0) to represent it (start counting from 0)**
 
-**For all sample please see**
+**For all sample please see [folder](sample)**
 
 - Inequality: 
 
