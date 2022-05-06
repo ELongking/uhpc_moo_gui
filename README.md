@@ -16,7 +16,7 @@ This simple program is implemented by our work, which is used to get high-accura
   
   If you know python, you can change the source code by yourself
 
-This project is released under the [Apache 2.0 license](LICENSE).
+This project is released under the [Apache 2.0 license](./LICENSE).
 </details>
 
 # How to use
