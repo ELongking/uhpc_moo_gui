@@ -27,7 +27,7 @@ The first row is used to import your concrete data. Make sure that one process (
 
 The second row is used to choose to select the export location (folder) for the relevant results files. The files include the final prediction model file (.pkl), the log files during the process, and a file named bound.xlsx which will be used in step 2
 
-The third row is optional. Like first row described, when you need to use multiple models generated in step 1 in advance in step 2, and the data used in the models generated in step 1 have different distributions, be sure to set this row. You need to concentate these whole data into a single .xlsx file. **Please see the specific format in document A**
+The third row is optional. Like first row described, when you need to use multiple models generated in step 1 in advance in step 2, and the data used in the models generated in step 1 have different distributions, be sure to set this row. You need to concentate these all data into a single .xlsx file by column (without properties in tabular).
 
 **Second, run this program**
 
