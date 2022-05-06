@@ -58,7 +58,7 @@ The second row is used to import user-defined file (.txt) containing various res
         <b>Silica fume</b>
       </td>
       <td>
-        <b>slag</b>
+        <b>Slag</b>
       </td>
       <td>
         <b>Limestone powder</b>
