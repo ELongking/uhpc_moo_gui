@@ -144,8 +144,6 @@ def main(model_path, constraint_path, export_path):
                                              xl=xl,
                                              xu=xu)
             self.scaler = MM
-            self.fPart = []
-            self.gPart = []
 
         def _evaluate(self, x, out, *args, **kwargs):
             fPart, gPart = [], []
