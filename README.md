@@ -40,4 +40,67 @@ And wait the progress, you can check log for progress details. The program will 
 
 The first row is used to import all the mixtures-properties prediction model files that you want to optimize (.pkl). Usually these model files are derived from the step 1. If you make the wrong adds, you can delete it by clicking the row and pressing the "remove" button on the right.
 
-The second row is used to import user-defined file (.txt) containing various restrictions and constraints. This file include four parts
+The second row is used to import user-defined file (.txt) containing various restrictions and constraints. This file include four parts:
+
+<div align="center">
+  <b>Example tabular</b>
+</div>
+<table align="center">
+  <tbody>
+    <tr align="center" valign="bottom">
+      <td>
+        <b>Cement</b>
+      </td>
+      <td>
+        <b>Fly ash</b>
+      </td>
+      <td>
+        <b>Silica fume</b>
+      </td>
+      <td>
+        <b>slag</b>
+      </td>
+      <td>
+        <b>Limestone powder</b>
+      </td>
+      <td>
+        <b>Water</b>
+      </td>
+      <td>
+        <b>...</b>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+**First of all, be careful that if you want to represent a component column, for example like above, cement is located in the first column of excel tabular, you should use inverse(0) to represent it (start counting from 0)**
+
+**For all sample please see**
+
+- Inequality: 
+
+  The line used to express inequality. For example if you want to indicate that the water to cement ratio is less than 0.25 and more than 0.12, express equation should be *0.12<=inverse(0)/inverse(5)<=0.25*. Both ends of the inequality need to be a number.
+  
+- Bound:
+
+  This line express the minimum and maximum values of the individual components. The minimum maximum value of each component is separated by ',' and the different components are separated by ';', the order should be consistent with the original data. For example: cement min,cement max;Fly ash min,Fly ash max...
+  
+- Customize:
+
+  This line express additional user-defined optimization function (for example cost function). If the unit prices are respectively a,b,c,d,e, the equation should be *a\*inverse(0)+b\*inverse(1)+c\*inverse(2)+d\*inverse(3)+e\*inverse(4)*
+  
+- Standard:
+
+  This line express the maximum and minimum values for the entire data distribution (exported from step 1 in bound.xlsx). Copy content from xlsx file directly but make sure that minimum values is in front.
+  
+The third row is used to choose to select the export location (folder) for the relevant results files. The files include the final mixtures optimization results, final corresponding properties and customized function results and log files during the process.
+
+**Second, run this program**
+
+Be careful, the start button will only become clickable once you have set up all the rows.
+
+## Note
+Customized function now only support for solving the minimum value
+
+## Future
+There may be plans for continuous process improvement.
