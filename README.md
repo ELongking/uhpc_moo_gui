@@ -104,3 +104,13 @@ Customized function now only support for solving the minimum value
 
 ## Future
 There may be plans for continuous process improvement.
+
+## Program packaging
+
+Make sure you have installed pyinstaller
+
+```Bash
+python pyinstaller -D -w surface.py
+```
+
+And check dist folder
