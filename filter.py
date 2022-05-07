@@ -113,7 +113,7 @@ class DATA:
                                    'gb': GradientBoostingRegressor,
                                    'bagging': BaggingRegressor, 'adaboost': AdaBoostRegressor,
                                    'etr': ExtraTreesRegressor,
-                                   'gamma': GammaRegressor, 'svr': SVR(), 'lgb': LGBMRegressor,
+                                   'gamma': GammaRegressor, 'svr': SVR, 'lgb': LGBMRegressor,
                                    'cab': CatBoostRegressor,
                                    'xgb': XGBRegressor}
 
