@@ -110,7 +110,7 @@ There may be plans for continuous process improvement.
 Make sure you have installed pyinstaller
 
 ```Bash
-python pyinstaller -D -w surface.py
+pyinstaller -D -w surface.py
 ```
 
 And check dist folder. There we have packed the program, check the [link](./program_link)
