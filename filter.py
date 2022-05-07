@@ -6,7 +6,7 @@ from collections import defaultdict
 
 import pandas as pd
 from sklearn.preprocessing import MinMaxScaler
-from sklearn.model_selection import train_test_split
+from sklearn.model_selection import train_test_split, KFold
 from sklearn.metrics import r2_score, mean_squared_error
 
 from sklearn.linear_model import SGDRegressor, Lasso, GammaRegressor, Ridge, ElasticNet
@@ -177,11 +177,19 @@ class DATA:
         logger.warning(
             'if catboost is in algorithm list, notice that we set iteration as 30 to speed up there, but in final test progress, it is 100')
         model_after_params_optimize = defaultdict(dict)
+        feature, value = np.vstack((X, X1)), np.hstack((y, y1))
 
         def hyperOn(params):
-            std = model(**params)
-            std.fit(X, y)
-            return -r2_score(y1, std.predict(X1))
+            all_r2_score = 0
+            kf = KFold(n_splits=5, shuffle=True, random_state=42)
+
+            for train_idx, test_idx in kf.split(feature):
+                train_x, test_x = feature[train_idx], feature[test_idx]
+                train_y, test_y = value[train_idx], value[test_idx]
+                std = model(**params)
+                std.fit(train_x, train_y)
+                all_r2_score += r2_score(test_y, std.predict(test_x))
+            return -all_r2_score
 
         for mod in model_list:
             logger.info(f'Now algorithm {mod} is in hyperparameter optimization progress')
