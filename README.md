@@ -81,7 +81,7 @@ The second row is used to import user-defined file (.txt) containing various res
 
   The line used to express inequality. For example if you want to indicate that the water to cement ratio is less than 0.25 and more than 0.12, express equation should be *0.12<=inverse(0)/inverse(5)<=0.25*. Both ends of the inequality need to be a number.
   
-  Be careful, we S recommend that this section be as detailed as possible, because the algorithm itself does not have concept of objective scientific restrictions
+  Be careful, we STRONGLY recommend that this section be as detailed as possible, because the algorithm itself does not have concept of objective scientific restrictions
   
 - Bound:
 
