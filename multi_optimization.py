@@ -9,7 +9,6 @@ import numpy as np
 from sklearn.preprocessing import MinMaxScaler
 import pandas as pd
 
-import re
 from loguru import logger
 import joblib
 from tkinter import messagebox as mb
