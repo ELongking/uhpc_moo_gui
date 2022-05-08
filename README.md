@@ -36,7 +36,7 @@ Be careful, the start button will only become clickable once you have set up the
 And wait the progress, you can check log for progress details. The program will alert you when all process have finished
 
 ## Step 2
-***First, prepare your various files and conduct the settings***
+***First, prepare your various files and conduct the settings (This part is very significant, which will directly affect your final optimization results***
 
 The first row is used to import all the mixtures-properties prediction model files that you want to optimize (.pkl). Usually these model files are derived from the step 1. If you make the wrong adds, you can delete it by clicking the row and pressing the "remove" button on the right.
 
