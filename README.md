@@ -36,7 +36,7 @@ Be careful, the start button will only become clickable once you have set up the
 And wait the progress, you can check log for progress details. The program will alert you when all process have finished
 
 ## Step 2
-***First, prepare your various files and conduct the settings (This part is very significant, which will directly affect your final optimization results***
+***First, prepare your various files and conduct the settings (This part is very significant, which will directly affect your final optimization results)***
 
 The first row is used to import all the mixtures-properties prediction model files that you want to optimize (.pkl). Usually these model files are derived from the step 1. If you make the wrong adds, you can delete it by clicking the row and pressing the "remove" button on the right.
 
@@ -80,6 +80,8 @@ The second row is used to import user-defined file (.txt) containing various res
 - Inequality: 
 
   The line used to express inequality. For example if you want to indicate that the water to cement ratio is less than 0.25 and more than 0.12, express equation should be *0.12<=inverse(0)/inverse(5)<=0.25*. Both ends of the inequality need to be a number.
+  
+  Be careful, we recommend that this section be as detailed as possible, because the algorithm itself does not have concept of objective scientific restrictions
   
 - Bound:
 
