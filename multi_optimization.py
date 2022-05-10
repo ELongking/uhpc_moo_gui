@@ -4,7 +4,6 @@ from pymoo.factory import get_sampling, get_crossover, get_mutation
 from pymoo.optimize import minimize
 from pymoo.factory import get_performance_indicator, get_reference_directions
 
-import joblib
 import numpy as np
 from sklearn.preprocessing import MinMaxScaler
 import pandas as pd
