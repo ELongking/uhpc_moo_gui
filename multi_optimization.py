@@ -119,8 +119,6 @@ def main(model_path, constraint_path, export_path):
     model_list, num_features = summary.read_model()
     inequality, custom_bound, custom_function, data_bound = summary.read_constraint()
     logger.info('constrain information has already imported!')
-    print(
-        f'inequality={inequality}\ncustom_bound={custom_bound}\ncustom_function={custom_function}\ndata_bound={data_bound}')
 
     if len(custom_bound) != 2 or len(data_bound) != 2:
         mb.showwarning('error', 'lower and upper bound should be one item')
