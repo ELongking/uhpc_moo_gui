@@ -103,6 +103,7 @@ Be careful, the start button will only become clickable once you have set up all
 
 ## Note
 Customized function now only support for solving the minimum value
+
 Only support for regression problem (the classification problem may lead to poor results)
 
 ## Future
