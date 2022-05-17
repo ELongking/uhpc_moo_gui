@@ -69,6 +69,9 @@ The second row is used to import user-defined file (.txt) containing various res
       <td>
         <b>...</b>
       </td>
+      <td>
+        <b>Properties(for example strength)</b>
+      </td>
     </tr>
   </tbody>
 </table>
