@@ -114,7 +114,7 @@ There may be plans for continuous process improvement.
 
 ## Program packaging
 
-Make sure you have installed pyinstaller
+Make sure you have installed pyinstaller if you have related python env.
 
 And you need these following packages:
 
