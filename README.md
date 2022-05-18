@@ -120,6 +120,9 @@ And you need these following packages:
 
 - pymoo
 - scikit-learn
+- numpy 
+- pandas
+- hyperopt
 
 ```Bash
 pyinstaller -D -w surface.py
