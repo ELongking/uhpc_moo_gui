@@ -116,6 +116,11 @@ There may be plans for continuous process improvement.
 
 Make sure you have installed pyinstaller
 
+And you need these following packages:
+
+- pymoo
+- scikit-learn
+
 ```Bash
 pyinstaller -D -w surface.py
 ```
