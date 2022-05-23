@@ -82,7 +82,7 @@ def params_space(algo_name):
                 'min_child_weight': hp.uniform('min_child_weight', 0, 10)}
     elif algo_name == 'cab':
         return {'learning_rate': hp.uniform('learning_rate', 0.01, 0.5),
-                'iterations': hp.choice('iterations', [30]),
+                'iterations': hp.choice('iterations', [10]),
                 'l2_leaf_reg': hp.choice('l2_leaf_reg', range(1, 31)),
                 'bagging_temperature': hp.uniform('bagging_temperature', 0.02, 1),
                 'boosting_type': hp.choice('boosting_type', ['Ordered', 'Plain']),
@@ -176,7 +176,7 @@ class DATA:
     def hyper_parameter(self, model_list, X, X1, y, y1):
         logger.info('Step hyperparameter optimization is in progress!')
         logger.warning(
-            'if catboost is in algorithm list, notice that we set iteration as 30 to speed up there, but in final test progress, it is 100')
+            'if catboost is in algorithm list, notice that we set iteration as 10 to speed up there, but in final test progress, it is 100')
         model_after_params_optimize = defaultdict(dict)
         feature, value = np.vstack((X, X1)), np.hstack((y, y1))
 
