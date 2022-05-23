@@ -215,6 +215,7 @@ class DATA:
         logger.warning('the total time depends on what the algorithm is selected by this framework')
 
         data, minBound, maxBound = self.preprocess()
+        logger.info(f'the shape of data = {data.shape}')
         logger.info(f'↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓\nmin_bound =\n{minBound}\nmax_bound =\n{maxBound}')
         bound_df = pd.DataFrame(np.array([minBound, maxBound]))
         bound_df.to_excel(f'{self.export_path}\\bound.xlsx')
