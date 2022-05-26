@@ -60,7 +60,7 @@ def params_space(algo_name):
     elif algo_name == 'adaboost':
         return {'n_estimators': hp.choice('n_estimators', range(10, 1001)),
                 'learning_rate': hp.uniform('learning_rate', 0.01, 0.5),
-                'loss': hp.choice('loss', ['linear', 'square' 'exponential'])}
+                'loss': hp.choice('loss', ['linear', 'square', 'exponential'])}
 }
     elif algo_name == 'etr':
         return {'bootstrap': hp.choice('bootstrap', [True, False]),
