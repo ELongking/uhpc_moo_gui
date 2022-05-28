@@ -20,7 +20,7 @@ This project is released under the [Apache 2.0 license](./LICENSE).
 </details>
 
 # How to use
-![image](https://github.com/ELongking/uhpc_moo_gui/blob/main/Flowchart.png)
+![image](https://github.com/ELongking/uhpc_moo_gui/blob/main/Flowchart.png](https://github.com/ELongking/uhpc_moo_gui/blob/main/Flowchart.png)
 ## Step 1
 ***First, prepare your data file and conduct the settings***
 
