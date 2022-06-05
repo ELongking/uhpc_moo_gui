@@ -110,6 +110,8 @@ Customized function now only support for solving the minimum value
 
 Only support for regression problem (the classification problem may lead to poor results)
 
+Everytime one process completed, you need re-open the whole program
+
 ## Future
 There may be plans for continuous process improvement.
 
