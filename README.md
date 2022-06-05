@@ -106,11 +106,11 @@ The third row is used to choose to select the export location (folder) for the r
 Be careful, the start button will only become clickable once you have set up all the rows.
 
 ## Note
-Customized function now only support for solving the minimum value
+- Customized function now only support for solving the minimum value
 
-Only support for regression problem (the classification problem may lead to poor results)
+- Only support for regression problem (the classification problem may lead to poor results)
 
-Everytime one process completed, you need re-open the whole program
+- Everytime one process completed, you need re-open the whole program
 
 ## Future
 There may be plans for continuous process improvement.
