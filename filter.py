@@ -87,7 +87,8 @@ def params_space(algo_name):
                 'boosting_type': hp.choice('boosting_type', ['Ordered', 'Plain']),
                 'depth': hp.choice('depth', range(2, 16)),
                 'leaf_estimation_method': hp.choice('leaf_estimation_method', ['Newton', 'Gradient']),
-                'random_strength': hp.choice('random_strength', range(1, 102))}
+                'random_strength': hp.choice('random_strength', range(1, 102)),
+                'verbose': hp.choice('verbose', [False])}
     elif algo_name == 'xgb':
         return {'reg_alpha': hp.uniform('reg_alpha', 0, 1), 'reg_lambda': hp.uniform('reg_lambda', 1, 20),
                 'learning_rate': hp.uniform('learning_rate', 0.01, 0.5),
