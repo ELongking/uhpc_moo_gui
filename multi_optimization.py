@@ -4,12 +4,13 @@ from pymoo.factory import get_sampling, get_crossover, get_mutation
 from pymoo.optimize import minimize
 from pymoo.factory import get_performance_indicator, get_reference_directions
 
+from joblib import load
 import numpy as np
 from sklearn.preprocessing import MinMaxScaler
 import pandas as pd
 
+import re
 from loguru import logger
-import joblib
 from tkinter import messagebox as mb
 
 
@@ -23,7 +24,7 @@ class PREPARE:
         model_list = []
         features = 0
         for path in self.path_list:
-            model = joblib.load(path)
+            model = load(path)
             if hasattr(model, 'n_features_'):
                 features = max(features, model.n_features_)
             elif hasattr(model, 'feature_importances_'):
@@ -102,6 +103,13 @@ class PREPARE:
 
 def get_result(res, n_obj, inverse_mm):
     hv = get_performance_indicator("hv", ref_point=np.array([1.15 for _ in range(n_obj)]))
+    try:
+        assert res.F.shape[0] > 0
+        logger.info(f'the number of final result items is {res.F.shape[0]}')
+    except:
+        logger.warning(
+            f'there is no result after optimization, plz check your constraints condition, '
+            f'it often occurs when your have some contrast between different constraints')
     function_result = np.absolute(res.F)
     variable_result = np.absolute(res.X)
     variable_result = inverse_mm.inverse_transform(variable_result)
@@ -119,6 +127,8 @@ def main(model_path, constraint_path, export_path):
     model_list, num_features = summary.read_model()
     inequality, custom_bound, custom_function, data_bound = summary.read_constraint()
     logger.info('constrain information has already imported!')
+    print(
+        f'inequality={inequality}\ncustom_bound={custom_bound}\ncustom_function={custom_function}\ndata_bound={data_bound}')
 
     if len(custom_bound) != 2 or len(data_bound) != 2:
         mb.showwarning('error', 'lower and upper bound should be one item')
@@ -140,6 +150,8 @@ def main(model_path, constraint_path, export_path):
                                              xl=xl,
                                              xu=xu)
             self.scaler = MM
+            self.fPart = []
+            self.gPart = []
 
         def _evaluate(self, x, out, *args, **kwargs):
             fPart, gPart = [], []
@@ -169,10 +181,11 @@ def main(model_path, constraint_path, export_path):
                           mutation=get_mutation("real_pm", eta=15),
                           sampling=get_sampling("real_random"),
                           crossover=get_crossover("real_sbx", eta=15, prob=0.9),
-                          eliminate_duplicates=True)
+                          eliminate_duplicates=True,
+                          )
 
     logger.info('moo process is in progress')
-    res = minimize(MOOProblem(), the_algorithm, ('n_gen', 600), seed=1)
+    res = minimize(MOOProblem(), the_algorithm, ('n_gen', 600), seed=1, return_least_infeasible=True)
     f_res, x_res = get_result(res, n_obj, MM)
     logger.info(f'after optimization, there are {f_res.shape[0]} items in result')
     fdf, xdf = pd.DataFrame(f_res), pd.DataFrame(x_res)
