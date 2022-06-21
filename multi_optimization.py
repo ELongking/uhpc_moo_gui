@@ -104,7 +104,7 @@ def get_result(res, n_obj, inverse_mm):
     hv = get_performance_indicator("hv", ref_point=np.array([1.15 for _ in range(n_obj)]))
     function_result = np.absolute(res.F)
     variable_result = np.absolute(res.X)
-    variable_result = inverse_mm.transform(variable_result)
+    variable_result = inverse_mm.inverse_transform(variable_result)
     mm = MinMaxScaler()
     targetSet = mm.fit_transform(function_result)
     logger.info(f'the value of hv indicator is {hv.do(targetSet)}')
