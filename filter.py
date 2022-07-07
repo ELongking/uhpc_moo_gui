@@ -169,7 +169,7 @@ class DATA:
         mod.columns = ['model', 'score_train', 'score_test', 'rmse_train', 'rmse_test']
         logger.info(f'filter result:\n{mod}')
 
-        models = mod.sort_values(by='score_test', ascending=False).iloc[0:3, 0].tolist()
+        models = mod.sort_values(by='score_test', ascending=False).iloc[0:3, 0].tolist() # you can change this params if you think there is another algos performing well
 
         return models
 
