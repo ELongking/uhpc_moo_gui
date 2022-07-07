@@ -107,7 +107,7 @@ class DATA:
                           'rf': RandomForestRegressor(), 'dt': DecisionTreeRegressor(),
                           'gb': GradientBoostingRegressor(),
                           'bagging': BaggingRegressor(), 'adaboost': AdaBoostRegressor(), 'etr': ExtraTreesRegressor(),
-                          'gamma': GammaRegressor(), 'svr': SVR(), 'lgb': LGBMRegressor(), 'cab': CatBoostRegressor(),
+                          'gamma': GammaRegressor(), 'svr': SVR(), 'lgb': LGBMRegressor(), 'cab': CatBoostRegressor(verbose=False),
                           'xgb': XGBRegressor()}
         self.algo_dict_optimize = {'el': ElasticNet, 'sgd': SGDRegressor, 'lasso': Lasso, 'ridge': Ridge,
                                    'rf': RandomForestRegressor, 'dt': DecisionTreeRegressor,
