@@ -47,6 +47,10 @@ class PREPARE:
             for pairs in line.split(';'):
                 pair = pairs.split(',')
                 m1, m2 = float(pair[0]), float(pair[1])
+                if m1 == 0:
+                    m1 += MV
+                if m2 == 0:
+                    m2 += MV
                 if m1 == m2:
                     min_value.append(m1)
                     max_value.append(m2 + MV)
@@ -56,9 +60,20 @@ class PREPARE:
             return [np.array(min_value), np.array(max_value)]
 
         elif flag == 3:
-            return [line]
+            min_value = []
+            if line != 'None':
+                diff_group = line.split(',')
+                for num in diff_group:
+                    num = float(num)
+                    min_value.append(num)
+                return min_value
+            else:
+                return None
 
         elif flag == 4:
+            return [line]
+
+        elif flag == 5:
             value_list = re.split(r'\s+', line)
             value_list = list(map(lambda x: float(x), value_list))
             return np.array(value_list)
@@ -67,8 +82,10 @@ class PREPARE:
         flag = 0
         Inequality = []
         MMbound = []
+        Prediction_min = []
         Custom_function = []
         Data_bound = []
+
         f = open(self.constraint_list, 'r')
         lines = f.readlines()
         for line in lines:
@@ -77,10 +94,12 @@ class PREPARE:
                 flag = 1
             elif line == 'Bound:':
                 flag = 2
-            elif line == 'Customize:':
+            elif line == 'Prediction:':
                 flag = 3
-            elif line == 'Standard:':
+            elif line == 'Customize:':
                 flag = 4
+            elif line == 'Standard:':
+                flag = 5
             if line:
                 if flag == 1 and line != 'Inequality:':
                     ans = self.analyse_constraint(line, flag)
@@ -88,17 +107,20 @@ class PREPARE:
                 elif flag == 2 and line != 'Bound:':
                     ans = self.analyse_constraint(line, flag)
                     MMbound.extend(ans)
-                elif flag == 3 and line != 'Customize:':
+                elif flag == 3 and line != 'Prediction:':
+                    ans = self.analyse_constraint(line, flag)
+                    Prediction_min.extend(ans)
+                elif flag == 4 and line != 'Customize:':
                     ans = self.analyse_constraint(line, flag)
                     Custom_function.extend(ans)
-                elif flag == 4 and line != 'Standard:':
+                elif flag == 5 and line != 'Standard:':
                     ans = self.analyse_constraint(line, flag)
                     Data_bound.append(ans)
             else:
                 break
         f.close()
 
-        return Inequality, MMbound, Custom_function, Data_bound
+        return Inequality, MMbound, Prediction_min, Custom_function, Data_bound
 
 
 def get_result(res, n_obj, inverse_mm):
@@ -109,7 +131,8 @@ def get_result(res, n_obj, inverse_mm):
     except:
         logger.warning(
             f'there is no result after optimization, plz check your constraints condition, '
-            f'it often occurs when your have some contrast between different constraints')
+            f'it often occurs when your have some conflicts between different constraints'
+            f'If you dont know how to solve it and want to get an infeasible result, you can check the box to TRUE')
     function_result = np.absolute(res.F)
     variable_result = np.absolute(res.X)
     variable_result = inverse_mm.inverse_transform(variable_result)
@@ -119,16 +142,17 @@ def get_result(res, n_obj, inverse_mm):
     return function_result, variable_result
 
 
-def main(model_path, constraint_path, export_path):
+def main(model_path, constraint_path, export_path, least_condition):
     logger.add(f'{export_path}//moo-runtime.txt')
     logger.info('the multi-object optimization process is in progress!')
 
     summary = PREPARE(model_path, constraint_path, export_path)
     model_list, num_features = summary.read_model()
-    inequality, custom_bound, custom_function, data_bound = summary.read_constraint()
+    inequality, custom_bound, prediction_min, custom_function, data_bound = summary.read_constraint()
     logger.info('constrain information has already imported!')
     print(
-        f'inequality={inequality}\ncustom_bound={custom_bound}\ncustom_function={custom_function}\ndata_bound={data_bound}')
+        f'inequality={inequality}\ncustom_bound={custom_bound}\nprediction_min={prediction_min}\n'
+        f'custom_function={custom_function}\ndata_bound={data_bound}')
 
     if len(custom_bound) != 2 or len(data_bound) != 2:
         mb.showwarning('error', 'lower and upper bound should be one item')
@@ -174,6 +198,13 @@ def main(model_path, constraint_path, export_path):
                     gPart.append(eq)
                 else:
                     gPart.append(-eq)
+
+            if prediction_min != [None]:
+                assert len(prediction_min) == len(model_list)
+                for idx in range(len(prediction_min)):
+                    the_model = model_list[idx].predict(x)
+                    gPart.append(the_model - prediction_min[idx])
+
             out['G'] = np.column_stack(gPart)
 
     ref_dirs = get_reference_directions("das-dennis", n_obj, n_partitions=12)
@@ -185,7 +216,11 @@ def main(model_path, constraint_path, export_path):
                           )
 
     logger.info('moo process is in progress')
-    res = minimize(MOOProblem(), the_algorithm, ('n_gen', 600), seed=1, return_least_infeasible=True)
+
+    if least_condition == 1:
+        res = minimize(MOOProblem(), the_algorithm, ('n_gen', 600), seed=1, return_least_infeasible=True)
+    else:
+        res = minimize(MOOProblem(), the_algorithm, ('n_gen', 600), seed=1, return_least_infeasible=False)
     f_res, x_res = get_result(res, n_obj, MM)
     logger.info(f'after optimization, there are {f_res.shape[0]} items in result')
     fdf, xdf = pd.DataFrame(f_res), pd.DataFrame(x_res)
