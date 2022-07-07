@@ -93,7 +93,7 @@ The second row is used to import user-defined file (.txt) containing various res
   
 - Prediction:
   
-  This line express the minimum you want to get in prediction function. For example in practice, we usually want the final concrete strength is higher than a certain value. If you have N prediction model, you should use ',' to separate them, and if you dont need minimum bound, you should enter 'None' here.
+  This line express the minimum you want to get in prediction function. For example in practice, we usually want the final concrete strength is higher than a certain value. If you have *N* prediction models, you should use ',' to separate them, like 100,200,300. And if you dont need minimum bound, you should enter 'None' here.
   
 - Customize:
 
