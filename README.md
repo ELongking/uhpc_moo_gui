@@ -91,6 +91,10 @@ The second row is used to import user-defined file (.txt) containing various res
 
   This line express the minimum and maximum values of the individual components. The minimum maximum value of each component is separated by ',' and the different components are separated by ';', the order should be consistent with the original data. For example: cement min,cement max;Fly ash min,Fly ash max...
   
+- Prediction:
+  
+  This line express the minimum you want to get in prediction function. For example in practice, we usually want the final concrete strength is higher than a certain value. If you have N prediction model, you should use ',' to separate them, and if you dont need minimum bound, you should enter 'None' here.
+  
 - Customize:
 
   This line express additional user-defined optimization function (for example cost function). If the unit prices are respectively a,b,c,d,e, the equation should be *a\*inverse(0)+b\*inverse(1)+c\*inverse(2)+d\*inverse(3)+e\*inverse(4)*
@@ -100,6 +104,8 @@ The second row is used to import user-defined file (.txt) containing various res
   This line express the maximum and minimum values for the entire data distribution (exported from step 1 in bound.xlsx). Copy content from xlsx file directly but make sure that minimum values is in front.
   
 The third row is used to choose to select the export location (folder) for the relevant results files. The files include the final mixtures optimization results, final corresponding properties and customized function results and log files during the process.
+
+The final check box means, sometimes your constraints are too complex or contrary to mathematical foundation, and you cant aware of it. It may cause algorithm cant find the optimal solution set. If you still want to get a result under the previous constraint condition, you should turn the box to TRUE.
 
 ***Second, run this program***
 
@@ -128,7 +134,7 @@ And you need these following packages:
 - hyperopt
 
 ```Bash
-pyinstaller -D -w surface.py
+pyinstaller -D -w --clean surface.py
 ```
 
 And check dist folder. There we have packed the program, check the [link](./program_link)
